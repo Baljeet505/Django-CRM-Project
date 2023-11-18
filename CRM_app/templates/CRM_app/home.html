@@ -1,0 +1,53 @@
+{% extends "CRM_app/base.html" %}
+
+{% block body %}
+{% if messages %}
+<div class="messages">
+  {% for message in messages %}
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+{% if user.is_authenticated %}
+<div class="container">
+  <h1>Welcome to Record's Page {{user.username}}</h1>
+  {% with total_records=records|length %}
+  <div class="alert alert-light">
+    <p>Total number of records: <strong>{{ total_records }}</strong></p>
+  </div>
+  {% endwith %}
+        <table id="table" class="table table-hover table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone No</th>
+                    <th scope="col">City</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Date/Time</th>
+                </tr>
+            </thead>
+            {% for record in records %}
+            <tbody>
+              <tr>
+                <td><a href="{% url "Record" record.id %}">{{record.id}}</a></td>
+                <td>{{record.first_name}}</td>
+                <td>{{record.last_name}}</td>
+                <td>{{record.email}}</td>
+                <td>{{record.phone}}</td>
+                <td>{{record.city}}</td>
+                <td>{{record.state}}</td>
+                <td>{{record.created_at}}</td>
+              </tr>
+              </tr>
+            </tbody>
+            {% endfor %}
+          </table>
+    </div>
+    {% endif %}
+{% endblock %}

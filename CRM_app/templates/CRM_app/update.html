@@ -1,0 +1,24 @@
+{% extends "CRM_app/base.html" %}
+{% block body %}
+{% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+            {% endfor %}
+        </div>
+{% endif %}
+{% if user.is_authenticated %}
+    <div class="col-4 offset-4">
+        <h1>Update Record</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}<br>
+            <button type="submit" class="btn btn-primary">Update Record</button>
+        </form>
+    </div>
+    </div>
+{% endif %}
+{% endblock  %}
